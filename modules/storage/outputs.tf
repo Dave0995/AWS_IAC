@@ -3,6 +3,11 @@ output "airflow_bucket_name" {
   value       = aws_s3_bucket.airflow_bucket.bucket
 }
 
+output "airflow_bucket_name_arn" {
+  description = "ARN value for airflow's bucket"
+  value       = aws_s3_bucket.airflow_bucket.arn
+}
+
 output "data_contracts_bucket_name" {
   description = "Name for data contracts' bucket"
   value       = aws_s3_bucket.data_contracts_bucket.bucket
