@@ -48,4 +48,8 @@ module "dave_network" {
 
 module "dave_airflow" {
   source = "../../modules/orchestrator"
+
+  security_group_id = module.dave_network.security_group_id
+  s3_airflow_bucket_arn = module.dave_storage.airflow_bucket_name_arn
+  private_subnets_id = module.dave_network.private_subnets_id
 }
