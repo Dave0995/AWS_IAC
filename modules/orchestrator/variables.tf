@@ -11,3 +11,8 @@ variable "private_subnets_id" {
     type = list(string)
     description = "private subnets neede for the MWAA instance"
 }
+
+variable "environment" {
+    type = string
+    description = "Initial for the name of the environment"
+}

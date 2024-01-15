@@ -87,3 +87,13 @@ variable "private_map_public_ip_2" {
     type = bool
     description = "Flag for enabling ip public map on private subnet 2"
 }
+
+variable "environment" {
+    type = string
+    description = "Initial for the name of the environment"
+}
+
+variable "aws_security_group_tag" {
+    type = string
+    description = "Tag name for security group"
+}
