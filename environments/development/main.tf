@@ -25,15 +25,14 @@ module "dave_network" {
   enable_dns_hostnames = true
   vpc_tag_name = "dave-vpc"
 
-  # subnet cidr block for both private and public
-  subnet_cidr_block = "10.0.1.0/24"
-
   # Public subnet
+  public_subnet_cidr_block = "10.0.1.0/24"
   public_availability_zone = "us-east-1a"
   public_map_public_ip = true
   public_subnet_tag_name = "dave-public-subnet"
 
   # Private subnet
+  private_subnet_cidr_block = "10.0.2.0/24"
   private_availability_zone = "us-east-1b"
   private_map_public_ip = false
   private_subnet_tag_name = "dave-private-subnet"

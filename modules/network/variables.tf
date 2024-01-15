@@ -38,9 +38,14 @@ variable "vpc_cidr_block" {
     description = "IP range values for vpc"
 }
 
-variable "subnet_cidr_block" {
+variable "public_subnet_cidr_block" {
     type = string
-    description = "IP range values for subnet"
+    description = "IP range values for public subnet"
+}
+
+variable "private_subnet_cidr_block" {
+    type = string
+    description = "IP range values for private subnet"
 }
 
 variable "enable_dns_support" {
