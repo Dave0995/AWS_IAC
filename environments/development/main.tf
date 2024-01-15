@@ -32,11 +32,20 @@ module "dave_network" {
   public_subnet_tag_name = var.public_subnet_tag_name
 
   # Private subnet
-  private_subnet_cidr_block = var.private_subnet_cidr_block
-  private_availability_zone = var.private_availability_zone
-  private_map_public_ip = var.private_map_public_ip
-  private_subnet_tag_name = var.private_subnet_tag_name
+  private_subnet_cidr_block_1 = var.private_subnet_cidr_block_1
+  private_availability_zone_1 = var.private_availability_zone_1
+  private_map_public_ip_1 = var.private_map_public_ip_1
+  private_subnet_tag_name_1 = var.private_subnet_tag_name_1
+
+  private_subnet_cidr_block_2 = var.private_subnet_cidr_block_2
+  private_availability_zone_2 = var.private_availability_zone_2
+  private_map_public_ip_2 = var.private_map_public_ip_2
+  private_subnet_tag_name_2 = var.private_subnet_tag_name_2
 
   internet_gateway_tag = var.internet_gateway_tag
   public_route_table_tag = var.public_route_table_tag
+}
+
+module "dave_airflow" {
+  source = "../../modules/orchestrator"
 }

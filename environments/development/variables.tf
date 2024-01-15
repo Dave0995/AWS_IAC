@@ -48,24 +48,44 @@ variable "public_subnet_tag_name" {
   description = "Tag name for the public subnet"
 }
 
-variable "private_subnet_cidr_block" {
+variable "private_subnet_cidr_block_1" {
   type = string
-  description = "IP ranges for the private subnet"
+  description = "IP ranges for the private subnet 1"
 }
 
-variable "private_availability_zone" {
+variable "private_availability_zone_1" {
   type = string
-  description = "Availability zone for the private subnet"
+  description = "Availability zone for the private subnet 1"
 }
 
-variable "private_map_public_ip" {
+variable "private_map_public_ip_1" {
   type = bool
-  description = "Flag for activating the map public ip functionality in the public subnet"
+  description = "Flag for activating the map public ip functionality in the public subnet 1"
 }
 
-variable "private_subnet_tag_name" {
+variable "private_subnet_tag_name_1" {
   type = string
-  description = "Tag name for the private subnet"
+  description = "Tag name for the private subnet 1"
+}
+
+variable "private_subnet_cidr_block_2" {
+  type = string
+  description = "IP ranges for the private subnet 2"
+}
+
+variable "private_availability_zone_2" {
+  type = string
+  description = "Availability zone for the private subnet 2"
+}
+
+variable "private_map_public_ip_2" {
+  type = bool
+  description = "Flag for activating the map public ip functionality in the public subnet 2"
+}
+
+variable "private_subnet_tag_name_2" {
+  type = string
+  description = "Tag name for the private subnet 2"
 }
 
 variable "internet_gateway_tag" {

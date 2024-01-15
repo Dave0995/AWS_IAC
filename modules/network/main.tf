@@ -17,13 +17,23 @@ resource "aws_subnet" "dave_public_subnet" {
   }
 }
 
-resource "aws_subnet" "dave_private_subnet" {
+resource "aws_subnet" "dave_private_subnet_1" {
   vpc_id                  = aws_vpc.dave_vpc.id
-  cidr_block              = var.private_subnet_cidr_block
-  availability_zone       = var.private_availability_zone
-  map_public_ip_on_launch = var.private_map_public_ip
+  cidr_block              = var.private_subnet_cidr_block_1
+  availability_zone       = var.private_availability_zone_1
+  map_public_ip_on_launch = var.private_map_public_ip_1
   tags = {
-    Name = var.private_subnet_tag_name
+    Name = var.private_subnet_tag_name_1
+  }
+}
+
+resource "aws_subnet" "dave_private_subnet_2" {
+  vpc_id                  = aws_vpc.dave_vpc.id
+  cidr_block              = var.private_subnet_cidr_block_2
+  availability_zone       = var.private_availability_zone_2
+  map_public_ip_on_launch = var.private_map_public_ip_2
+  tags = {
+    Name = var.private_subnet_tag_name_2
   }
 }
 
