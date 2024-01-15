@@ -52,3 +52,13 @@ variable "enable_dns_hostnames" {
     type = bool
     description = "Flag for enabling dns hostnames"
 }
+
+variable "public_map_public_ip" {
+    type = bool
+    description = "Flag for enabling ip public map on public subnet"
+}
+
+variable "private_map_public_ip" {
+    type = bool
+    description = "Flag for enabling ip public map on private subnet"
+}
