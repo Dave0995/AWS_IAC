@@ -27,3 +27,4 @@ private_subnet_tag_name_2 = "dave-private-subnet-2"
 
 internet_gateway_tag = "dave-igw"
 public_route_table_tag = "dave-route-table"
+aws_security_group_tag = "dave-security-group"

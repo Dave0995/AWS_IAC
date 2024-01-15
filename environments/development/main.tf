@@ -19,6 +19,8 @@ module "dave_storage" {
 module "dave_network" {
   source = "../../modules/network"
   
+  environment = var.environment
+
   # VPC
   vpc_cidr_block = var.vpc_cidr_block
   enable_dns_support = var.enable_dns_support
@@ -44,6 +46,7 @@ module "dave_network" {
 
   internet_gateway_tag = var.internet_gateway_tag
   public_route_table_tag = var.public_route_table_tag
+  aws_security_group_tag = var.aws_security_group_tag
 }
 
 module "dave_airflow" {
@@ -52,4 +55,5 @@ module "dave_airflow" {
   security_group_id = module.dave_network.security_group_id
   s3_airflow_bucket_arn = module.dave_storage.airflow_bucket_name_arn
   private_subnets_id = module.dave_network.private_subnets_id
+  environment = var.environment
 }

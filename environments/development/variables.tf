@@ -97,3 +97,8 @@ variable "public_route_table_tag" {
   type = string
   description = "Tag name for the route table"
 }
+
+variable "aws_security_group_tag" {
+    type = string
+    description = "Tag name for security group"
+}
