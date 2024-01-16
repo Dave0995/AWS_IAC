@@ -27,4 +27,4 @@ jobs:
 
       - name: Copy DAGS into the Airflow Bucket
         run: |
-          aws s3 sync dags s3://bucket_name/
+          aws s3 sync dags s3://${{ secrets.BUCKET_NAME }}/
