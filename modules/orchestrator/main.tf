@@ -111,7 +111,34 @@ resource "aws_iam_role_policy" "mwaa_execution_role_policy" {
 EOF
 }
 
+resource "aws_iam_policy" "dave_airflow_policy" {
+  name        = "dave_airflow_policy"
+  path        = "/"
+  description = "Full Access airflow set of policies for MWAA"
 
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "airflow:*",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "example_role_policy_attachment" {
+  policy_arn = aws_iam_policy.dave_airflow_policy.arn
+  role       = aws_iam_role.mwaa_execution_role.name
+}
+
+resource "aws_iam_user_policy_attachment" "dave_airflow_policy_attachment" {
+  user       = "dave-ops"
+  policy_arn = aws_iam_policy.dave_airflow_policy.arn
+}
 
 resource "aws_mwaa_environment" "airflow_instance" {
   dag_s3_path        = "dags/"
