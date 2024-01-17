@@ -9,10 +9,15 @@ enable_dns_hostnames = true
 vpc_tag_name = "dave-vpc"
 
 # Public subnet
-public_subnet_cidr_block = "10.0.1.0/24"
-public_availability_zone = "us-east-1a"
-public_map_public_ip = true
-public_subnet_tag_name = "dave-public-subnet"
+public_subnet_cidr_block_1 = "10.0.10.0/24"
+public_availability_zone_1 = "us-east-1a"
+public_map_public_ip_1 = true
+public_subnet_tag_name_1 = "dave-public-subnet-1"
+
+public_subnet_cidr_block_2 = "10.0.4.0/24"
+public_availability_zone_2 = "us-east-1d"
+public_map_public_ip_2 = true
+public_subnet_tag_name_2 = "dave-public-subnet-2"
 
 # Private subnet
 private_subnet_cidr_block_1 = "10.0.2.0/24"
