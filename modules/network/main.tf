@@ -54,11 +54,6 @@ resource "aws_internet_gateway" "dave_igw" {
   }
 }
 
-resource "aws_internet_gateway_attachment" "dave_igw" {
-  vpc_id             = aws_vpc.dave_vpc.id
-  internet_gateway_id = aws_internet_gateway.dave_igw.id
-}
-
 resource "aws_route_table" "dave_public_route_table" {
   vpc_id = aws_vpc.dave_vpc.id
   route {
