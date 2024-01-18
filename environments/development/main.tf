@@ -51,9 +51,10 @@ module "dave_network" {
 
   internet_gateway_tag = var.internet_gateway_tag
   public_route_table_tag = var.public_route_table_tag
+  private_route_table_tag_1 = var.private_route_table_tag_1
+  private_route_table_tag_2 = var.private_route_table_tag_2
   aws_security_group_tag = var.aws_security_group_tag
 }
-
 module "dave_airflow" {
   source = "../../modules/orchestrator"
 
