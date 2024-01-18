@@ -117,3 +117,13 @@ variable "aws_security_group_tag" {
     type = string
     description = "Tag name for security group"
 }
+
+variable "private_route_table_tag_1" {
+    type = string
+    description = "Tag name for private route table 1"
+}
+
+variable "private_route_table_tag_2" {
+    type = string
+    description = "Tag name for private route table 2"
+}
