@@ -71,31 +71,37 @@ resource "aws_route_table" "dave_public_route_table" {
 }
 
 resource "aws_security_group" "dave_security_group" {
+  name = "${var.aws_security_group_tag}-${var.environment}"
   vpc_id = aws_vpc.dave_vpc.id
-
-  ingress {
-    from_port = 443
-    to_port   = 443
-    protocol  = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port = 5432
-    to_port   = 5432
-    protocol  = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
   tags = {
     name = "${var.aws_security_group_tag}-${var.environment}"
   }
 }
 
+resource "aws_security_group_rule" "allow_all_out_traffic_managed_airflow" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = -1
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.dave_security_group.id
+}
+
+resource "aws_security_group_rule" "allow_inbound_internal_traffic" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = data.terraform_remote_state.network_remote_state.outputs.internal_subnet_cidrs
+  security_group_id = aws_security_group.dave_security_group.id
+}
+
+resource "aws_security_group_rule" "self_reference_sgr" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  self              = true
+  security_group_id = aws_security_group.dave_security_group.id
+}
