@@ -93,7 +93,7 @@ resource "aws_security_group_rule" "allow_inbound_internal_traffic" {
   from_port         = 443
   to_port           = 443
   protocol          = "tcp"
-  cidr_blocks       = data.terraform_remote_state.network_remote_state.outputs.internal_subnet_cidrs
+  cidr_blocks       = [var.private_subnet_cidr_block_1, var.private_subnet_cidr_block_2]
   security_group_id = aws_security_group.dave_security_group.id
 }
 
