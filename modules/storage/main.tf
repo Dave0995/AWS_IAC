@@ -27,7 +27,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "airflow_bucket" {
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "this" {
+resource "aws_s3_bucket_public_access_block" "airflow_bucket" {
   bucket                  = aws_s3_bucket.airflow_bucket.id
   block_public_acls       = true
   block_public_policy     = true
