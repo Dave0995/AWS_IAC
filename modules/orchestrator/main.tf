@@ -18,9 +18,9 @@ resource "aws_iam_role" "mwaa_execution_role" {
   })
 }
 
-resource "aws_iam_role_policy" "mwaa_execution_role_policy" {
-  name   = "AWSMWAAEnvironmentPolicy"
-  role   = aws_iam_role.mwaa_execution_role.name
+resource "aws_iam_policy" "mwaa_execution_policy" {
+  name        = "tu-politica"
+  description = "Descripción de tu política"
 
   policy = <<EOF
 {
@@ -114,189 +114,43 @@ resource "aws_iam_role_policy" "mwaa_execution_role_policy" {
 EOF
 }
 
-#resource "aws_iam_policy" "mwaa_full_console_access" {
-#  name   = "AmazonMWAAFullConsoleAccess"
-#
-#  policy = <<EOF
-#{
-#   "Version":"2012-10-17",
-#   "Statement":[
-#      {
-#         "Effect":"Allow",
-#         "Action":"airflow:*",
-#         "Resource":"*"
-#      },
-#      {
-#         "Effect":"Allow",
-#         "Action":[
-#            "iam:PassRole"
-#         ],
-#         "Resource":"*",
-#         "Condition":{
-#            "StringLike":{
-#               "iam:PassedToService":"airflow.amazonaws.com"
-#            }
-#         }
-#      },
-#      {
-#         "Effect":"Allow",
-#         "Action":[
-#            "iam:ListRoles"
-#         ],
-#         "Resource":"*"
-#      },
-#      {
-#         "Effect":"Allow",
-#         "Action":[
-#            "iam:CreatePolicy"
-#         ],
-#         "Resource":"arn:aws:iam::975050150843:policy/service-role/MWAA-Execution-Policy*"
-#      },
-#            {
-#         "Effect":"Allow",
-#         "Action":[
-#            "iam:AttachRolePolicy",
-#            "iam:CreateRole"
-#         ],
-#         "Resource":"arn:aws:iam::975050150843:role/service-role/AmazonMWAA*"
-#      },
-#      {
-#         "Effect":"Allow",
-#         "Action":[
-#            "iam:CreateServiceLinkedRole"
-#         ],
-#         "Resource":"arn:aws:iam::*:role/aws-service-role/airflow.amazonaws.com/AWSServiceRoleForAmazonMWAA"
-#      },
-#      {
-#         "Effect":"Allow",
-#         "Action":[
-#            "s3:GetBucketLocation",
-#            "s3:ListAllMyBuckets",
-#            "s3:ListBucket",
-#            "s3:ListBucketVersions"
-#         ],
-#         "Resource":"*"
-#      },
-#      {
-#         "Effect":"Allow",
-#         "Action":[
-#            "s3:CreateBucket",
-#            "s3:PutObject",
-#            "s3:GetEncryptionConfiguration"
-#         ],
-#         "Resource":"arn:aws:s3:::*"
-#      },
-#      {
-#         "Effect":"Allow",
-#         "Action":[
-#            "ec2:DescribeSecurityGroups",
-#            "ec2:DescribeSubnets",
-#            "ec2:DescribeVpcs",
-#            "ec2:DescribeRouteTables"
-#         ],
-#         "Resource":"*"
-#      },
-#      {
-#         "Effect":"Allow",
-#         "Action":[
-#            "ec2:AuthorizeSecurityGroupIngress",
-#            "ec2:CreateSecurityGroup"
-#         ],
-#         "Resource":"arn:aws:ec2:*:*:security-group/airflow-security-group-*"
-#      },
-#      {
-#         "Effect":"Allow",
-#         "Action":[
-#            "kms:ListAliases"
-#         ],
-#         "Resource":"*"
-#      },
-#      {
-#         "Effect":"Allow",
-#         "Action":"ec2:CreateVpcEndpoint",
-#         "Resource":[
-#            "arn:aws:ec2:*:*:vpc-endpoint/*",
-#            "arn:aws:ec2:*:*:vpc/*",
-#            "arn:aws:ec2:*:*:subnet/*",
-#            "arn:aws:ec2:*:*:security-group/*"
-#         ]
-#      },
-#      {
-#         "Effect":"Allow",
-#         "Action":[
-#            "ec2:CreateNetworkInterface"
-#         ],
-#         "Resource":[
-#            "arn:aws:ec2:*:*:subnet/*",
-#            "arn:aws:ec2:*:*:network-interface/*"
-#         ]
-#      }
-#   ]
-#}
-#EOF
-#}
-#
-#resource "aws_iam_policy" "dave_airflow_policy" {
-#  name        = "dave_airflow_policy"
-#  path        = "/"
-#  description = "Full Access airflow set of policies for MWAA"
-#
-#  policy = jsonencode({
-#    Version = "2012-10-17"
-#    Statement = [
-#      {
-#        Action = [
-#          "airflow:*",
-#        ]
-#        Effect   = "Allow"
-#        Resource = "*"
-#      },
-#    ]
-#  })
-#}
-#
-#resource "aws_iam_role_policy_attachment" "dave_role_policy_attachment" {
-#  policy_arn = aws_iam_policy.dave_airflow_policy.arn
-#  role       = aws_iam_role.mwaa_execution_role.name
-#}
-
-#resource "aws_iam_user_policy_attachment" "dave_mwaa_full_access_policy" {
-#  user       = "dave-ops"
-#  policy_arn = aws_iam_policy.mwaa_full_console_access.arn
-#}
+resource "aws_iam_role_policy_attachment" "example_attachment" {
+  policy_arn = aws_iam_policy.mwaa_execution_policy.arn
+  role       = aws_iam_role.mwaa_execution_role.name
+}
 
 #resource "aws_mwaa_environment" "airflow_instance" {
 #  dag_s3_path        = "dags/"
 #  execution_role_arn = aws_iam_role.mwaa_execution_role.arn
+#  webserver_access_mode = "PUBLIC_ONLY"
+#  name = "dave-mwaa-${var.environment}"
 #
 #  logging_configuration {
 #    dag_processing_logs {
-#      enabled   = true
-#      log_level = "DEBUG"
+#        enabled   = true
+#        log_level = "DEBUG"
 #    }
 #
 #    scheduler_logs {
-#      enabled   = true
-#      log_level = "INFO"
+#        enabled   = true
+#        log_level = "INFO"
 #    }
 #
 #    task_logs {
-#      enabled   = true
-#      log_level = "WARNING"
+#        enabled   = true
+#        log_level = "WARNING"
 #    }
 #
 #    webserver_logs {
-#      enabled   = true
-#      log_level = "ERROR"
+#        enabled   = true
+#        log_level = "ERROR"
 #    }
 #
 #    worker_logs {
-#      enabled   = true
-#      log_level = "CRITICAL"
+#        enabled   = true
+#        log_level = "CRITICAL"
 #    }
 #  }
-#
-#  name = "dave-mwaa-${var.environment}"
 #
 #  network_configuration {
 #    security_group_ids = [var.security_group_id]
