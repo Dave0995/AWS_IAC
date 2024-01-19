@@ -119,43 +119,43 @@ resource "aws_iam_role_policy_attachment" "example_attachment" {
   role       = aws_iam_role.mwaa_execution_role.name
 }
 
-#resource "aws_mwaa_environment" "airflow_instance" {
-#  dag_s3_path        = "dags/"
-#  execution_role_arn = aws_iam_role.mwaa_execution_role.arn
-#  webserver_access_mode = "PUBLIC_ONLY"
-#  name = "dave-mwaa-${var.environment}"
-#
-#  logging_configuration {
-#    dag_processing_logs {
-#        enabled   = true
-#        log_level = "DEBUG"
-#    }
-#
-#    scheduler_logs {
-#        enabled   = true
-#        log_level = "INFO"
-#    }
-#
-#    task_logs {
-#        enabled   = true
-#        log_level = "WARNING"
-#    }
-#
-#    webserver_logs {
-#        enabled   = true
-#        log_level = "ERROR"
-#    }
-#
-#    worker_logs {
-#        enabled   = true
-#        log_level = "CRITICAL"
-#    }
-#  }
-#
-#  network_configuration {
-#    security_group_ids = [var.security_group_id]
-#    subnet_ids         = var.private_subnets_id
-#  }
-#
-#  source_bucket_arn = var.s3_airflow_bucket_arn
-#}
+resource "aws_mwaa_environment" "airflow_instance" {
+  dag_s3_path        = "dags/"
+  execution_role_arn = aws_iam_role.mwaa_execution_role.arn
+  webserver_access_mode = "PUBLIC_ONLY"
+  name = "dave-mwaa-${var.environment}"
+
+  logging_configuration {
+    dag_processing_logs {
+        enabled   = true
+        log_level = "DEBUG"
+    }
+
+    scheduler_logs {
+        enabled   = true
+        log_level = "INFO"
+    }
+
+    task_logs {
+        enabled   = true
+        log_level = "WARNING"
+    }
+
+    webserver_logs {
+        enabled   = true
+        log_level = "ERROR"
+    }
+
+    worker_logs {
+        enabled   = true
+        log_level = "CRITICAL"
+    }
+  }
+
+  network_configuration {
+    security_group_ids = [var.security_group_id]
+    subnet_ids         = var.private_subnets_id
+  }
+
+  source_bucket_arn = var.s3_airflow_bucket_arn
+}
