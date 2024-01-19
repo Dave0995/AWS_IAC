@@ -1,5 +1,5 @@
 resource "aws_iam_role" "mwaa_execution_role" {
-  name = "mwaa-execution-role"
+  name = "DaveMWAAExecutionRole"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -7,7 +7,10 @@ resource "aws_iam_role" "mwaa_execution_role" {
       {
         Effect = "Allow",
         Principal = {
-          Service = "airflow-env.amazonaws.com"
+          Service = [
+            "airflow-env.amazonaws.com",
+            "airflow.amazonaws.com"
+          ]
         },
         Action = "sts:AssumeRole"
       }
@@ -15,9 +18,9 @@ resource "aws_iam_role" "mwaa_execution_role" {
   })
 }
 
-resource "aws_iam_role_policy" "mwaa_execution_role_policy" {
-  name   = "AWSMWAAEnvironmentPolicy"
-  role   = aws_iam_role.mwaa_execution_role.name
+resource "aws_iam_policy" "mwaa_execution_policy" {
+  name        = "tu-politica"
+  description = "Descripción de tu política"
 
   policy = <<EOF
 {
@@ -26,7 +29,7 @@ resource "aws_iam_role_policy" "mwaa_execution_role_policy" {
         {
             "Effect": "Allow",
             "Action": "airflow:PublishMetrics",
-            "Resource": "arn:aws:airflow:us-east-1:975050150843:environment/MyAirflowEnvironment"
+            "Resource": "arn:aws:airflow:us-east-1:975050150843:environment/dave-mwaa-d"
         },
         {
             "Effect": "Deny",
@@ -60,7 +63,7 @@ resource "aws_iam_role_policy" "mwaa_execution_role_policy" {
                 "logs:GetQueryResults"
             ],
             "Resource": [
-                "arn:aws:logs:us-east-1:975050150843:log-group:airflow-MyAirflowEnvironment-*"
+                "arn:aws:logs:us-east-1:975050150843:log-group:airflow-dave-mwaa-d-*"
             ]
         },
         {
@@ -111,67 +114,43 @@ resource "aws_iam_role_policy" "mwaa_execution_role_policy" {
 EOF
 }
 
-resource "aws_iam_policy" "dave_airflow_policy" {
-  name        = "dave_airflow_policy"
-  path        = "/"
-  description = "Full Access airflow set of policies for MWAA"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "airflow:*",
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-    ]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "example_role_policy_attachment" {
-  policy_arn = aws_iam_policy.dave_airflow_policy.arn
+resource "aws_iam_role_policy_attachment" "example_attachment" {
+  policy_arn = aws_iam_policy.mwaa_execution_policy.arn
   role       = aws_iam_role.mwaa_execution_role.name
-}
-
-resource "aws_iam_user_policy_attachment" "dave_airflow_policy_attachment" {
-  user       = "dave-ops"
-  policy_arn = aws_iam_policy.dave_airflow_policy.arn
 }
 
 resource "aws_mwaa_environment" "airflow_instance" {
   dag_s3_path        = "dags/"
   execution_role_arn = aws_iam_role.mwaa_execution_role.arn
+  webserver_access_mode = "PUBLIC_ONLY"
+  name = "dave-mwaa-${var.environment}"
 
   logging_configuration {
     dag_processing_logs {
-      enabled   = true
-      log_level = "DEBUG"
+        enabled   = true
+        log_level = "DEBUG"
     }
 
     scheduler_logs {
-      enabled   = true
-      log_level = "INFO"
+        enabled   = true
+        log_level = "INFO"
     }
 
     task_logs {
-      enabled   = true
-      log_level = "WARNING"
+        enabled   = true
+        log_level = "WARNING"
     }
 
     webserver_logs {
-      enabled   = true
-      log_level = "ERROR"
+        enabled   = true
+        log_level = "ERROR"
     }
 
     worker_logs {
-      enabled   = true
-      log_level = "CRITICAL"
+        enabled   = true
+        log_level = "CRITICAL"
     }
   }
-
-  name = "dave-mwaa-${var.environment}"
 
   network_configuration {
     security_group_ids = [var.security_group_id]

@@ -28,10 +28,15 @@ module "dave_network" {
   vpc_tag_name = var.vpc_tag_name
 
   # Public subnet
-  public_subnet_cidr_block = var.public_subnet_cidr_block
-  public_availability_zone = var.public_availability_zone
-  public_map_public_ip = var.public_map_public_ip
-  public_subnet_tag_name = var.public_subnet_tag_name
+  public_subnet_cidr_block_1 = var.public_subnet_cidr_block_1
+  public_availability_zone_1 = var.public_availability_zone_1
+  public_map_public_ip_1 = var.public_map_public_ip_1
+  public_subnet_tag_name_1 = var.public_subnet_tag_name_1
+
+  public_subnet_cidr_block_2 = var.public_subnet_cidr_block_2
+  public_availability_zone_2 = var.public_availability_zone_2
+  public_map_public_ip_2 = var.public_map_public_ip_2
+  public_subnet_tag_name_2 = var.public_subnet_tag_name_2
 
   # Private subnet
   private_subnet_cidr_block_1 = var.private_subnet_cidr_block_1
@@ -46,9 +51,10 @@ module "dave_network" {
 
   internet_gateway_tag = var.internet_gateway_tag
   public_route_table_tag = var.public_route_table_tag
+  private_route_table_tag_1 = var.private_route_table_tag_1
+  private_route_table_tag_2 = var.private_route_table_tag_2
   aws_security_group_tag = var.aws_security_group_tag
 }
-
 module "dave_airflow" {
   source = "../../modules/orchestrator"
 
