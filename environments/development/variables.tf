@@ -132,3 +132,13 @@ variable "private_route_table_tag_2" {
     type = string
     description = "Tag name for private route table 2"
 }
+
+variable "account_id" {
+    type = string
+    description = "Account id that created the repository"
+}
+
+variable "application_id" {
+    type = string
+    description = "EMR Application id for submitting jobs"
+}

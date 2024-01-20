@@ -63,3 +63,10 @@ module "dave_airflow" {
   private_subnets_id = module.dave_network.private_subnets_id
   environment = var.environment
 }
+
+module "dave_ecr" {
+  source = "../../modules/artifacts"
+  region = var.region
+  account_id = var.account_id
+  application_id = var.application_id
+}
