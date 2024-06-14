@@ -35,3 +35,8 @@ public_route_table_tag = "dave-route-table"
 private_route_table_tag_1 = "dave-private-route-table-1"
 private_route_table_tag_2 = "dave-private-route-table-2"
 aws_security_group_tag = "dave-security-group"
+
+# ECR
+
+account_id = "851725320220"
+application_id = "*"
