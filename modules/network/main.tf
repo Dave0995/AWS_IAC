@@ -120,23 +120,6 @@ resource "aws_nat_gateway" "nat_gateway_2" {
     Name = "nat-gateway_2"
   }
 }
-#resource "aws_nat_gateway" "nat_gateway_1" {
-#  allocation_id = aws_eip.nat_eip_1.id
-#  subnet_id     = aws_subnet.dave_private_subnet_1.id
-#
-#  tags = {
-#    Name = "nat-gateway_1"
-#  }
-#}
-#
-#resource "aws_nat_gateway" "nat_gateway_2" {
-#  allocation_id = aws_eip.nat_eip_2.id
-#  subnet_id     = aws_subnet.dave_private_subnet_2.id
-#
-#  tags = {
-#    Name = "nat-gateway_2"
-#  }
-#}
 
 resource "aws_security_group" "dave_security_group" {
   name = "${var.aws_security_group_tag}-${var.environment}"
@@ -165,24 +148,6 @@ resource "aws_security_group_rule" "egress_rule" {
 
   cidr_blocks = ["0.0.0.0/0"]
 }
-
-#resource "aws_security_group_rule" "allow_inbound_internal_traffic" {
-#  type              = "ingress"
-#  from_port         = 443
-#  to_port           = 443
-#  protocol          = "tcp"
-#  cidr_blocks       = [var.private_subnet_cidr_block_1, var.private_subnet_cidr_block_2]
-#  security_group_id = aws_security_group.dave_security_group.id
-#}
-
-#resource "aws_security_group_rule" "self_reference_sgr" {
-#  type              = "ingress"
-#  from_port         = 0
-#  to_port           = 65535
-#  protocol          = "tcp"
-#  self              = true
-#  security_group_id = aws_security_group.dave_security_group.id
-#}
 
 resource "aws_route" "private_nat_route_1" {
   route_table_id         = aws_route_table.dave_private_route_table_1.id
